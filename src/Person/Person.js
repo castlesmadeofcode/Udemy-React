@@ -2,7 +2,7 @@ import React from 'react';
 // in its simplest form a component is just a function that returns some JSX
 
 // person = argument list, arrow, funciton body
-const person = (props) => {
+const Person = (props) => {
     // props has all properties of component (properties meaning attributes we add onto our component)
     return (
         <div>
@@ -14,4 +14,4 @@ const person = (props) => {
     );
 };
 
-export default person;
+export default Person;
