@@ -76,7 +76,6 @@ class App extends Component {
           changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
         <Person name={this.state.persons[2].name}
           age={this.state.persons[2].age}></Person>
-
       </div>
     );
     // JSX not hmtl^
