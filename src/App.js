@@ -15,7 +15,8 @@ class App extends Component {
       { name: 'Max', age: 28 },
       { name: 'Manu', age: 29 },
       { name: 'Stephanie', age: 26 }
-    ]
+    ],
+    showPersons: false
   }
 
   // Handler is used to indicate this is a method you arnet actively calling, but assigning as an event handler
@@ -34,7 +35,6 @@ class App extends Component {
   }
 
 
-  //TODO:(comment adding two way binding)
   nameChangedHandler = (event) => {
     this.setState({
       persons: [
@@ -43,6 +43,14 @@ class App extends Component {
         { name: 'Stephanie', age: 26 }
       ]
     })
+  }
+
+
+  // we use an arrow function so 'this' always returns to this class
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow })
+
   }
 
 
@@ -64,18 +72,26 @@ class App extends Component {
         {/* passes an anonymous function which gets executed on click and returns the result of the function within getting executed */}
         <button
           style={style}
-          onClick={() => this.switchNameHandler('Maximillion')}>Switch Name</button>
-        {/* this refers to the class */}
-        <Person name={this.state.persons[0].name}
-          age={this.state.persons[0].age}></Person>
-        <Person name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          // bind (this) and list of arguments that get passed into our function (switchNameHandler(newName))
-          click={this.switchNameHandler.bind(this, 'Max')}
-          // add a new property (click) and pass reference to the function (this.switchNameHandler) you want to pass as props
-          changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
-        <Person name={this.state.persons[2].name}
-          age={this.state.persons[2].age}></Person>
+          onClick={this.togglePersonsHandler}>Switch Name</button>
+        {/* /* this refers to the class  */}
+
+        {/* if showPersons = true display the div else render null/nothing */}
+        {
+          this.state.showPersons ?
+            < div >
+              <Person name={this.state.persons[0].name}
+                age={this.state.persons[0].age}></Person>
+              <Person name={this.state.persons[1].name}
+                age={this.state.persons[1].age}
+                // bind (this) and list of arguments that get passed into our function (switchNameHandler(newName))
+                click={this.switchNameHandler.bind(this, 'Max')}
+                // add a new property (click) and pass reference to the function (this.switchNameHandler) you want to pass as props
+                changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
+              <Person name={this.state.persons[2].name}
+                age={this.state.persons[2].age}></Person>
+            </div >
+            : null
+        }
       </div>
     );
     // JSX not hmtl^
