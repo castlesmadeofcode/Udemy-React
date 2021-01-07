@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import "./App.css";
+import classes from "./App.css";
+// css modules transforms classes into RNG unique class names
 import Person from "./Person/Person";
-import Radium from "radium";
+// import Radium, { StyleRoot } from "radium";
+//wrap return stament in StyleRoot component for advanced features such as media queries
+
 // Radium allows us to use inline styles with seudo selectors and media queries within react
 
 class App extends Component {
@@ -53,7 +56,7 @@ class App extends Component {
   // we use an arrow function so 'this' always returns to this class
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    // if doeShow is true set showPersons to false is doesShow is true set showPersons to false
+    // if doesShow is true set showPersons to false if doesShow is true set showPersons to false
     this.setState({ showPersons: !doesShow });
   };
 
@@ -61,19 +64,8 @@ class App extends Component {
     // React calls render to      | return/render something to the screen/DOM
     // every react component must ^
 
-    const style = {
-      backgroundColor: "green",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer",
-      ":hover": {
-        backgroundColor: "lightgreen",
-        color: "black",
-      },
-    };
-
     let persons = null;
+    let btnClass = [classes.button];
 
     if (this.state.showPersons) {
       // convert array of objects into valid jsx
@@ -103,31 +95,30 @@ class App extends Component {
         </div>
       );
 
-      style.backgroundColor = "red";
-      style[":hover"] = {
-        backgroundColor: "salmon",
-        color: "black",
-      };
+      btnClass.push(classes.red);
+      console.log(btnClass);
     }
 
-    let classes = [];
+    let assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push("red"); //classes = ['red']
+      assignedClasses.push(classes.red); //assignedClasses = ['red']
     }
     if (this.state.persons.length <= 1) {
-      classes.push("bold"); // classes = ['red', 'bold']
+      assignedClasses.push(classes.bold); // assignedClasses = ['red', 'bold']
     }
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(" ")}>This is really working!</p>
+        <p className={assignedClasses.join(" ")}>This is really working!</p>
         {/* passes an anonymous function which gets executed on click and returns the result of the function within getting executed */}
-        <button style={style} onClick={this.togglePersonsHandler}>
+        <button
+          className={btnClass.join(" ")}
+          onClick={this.togglePersonsHandler}
+        >
           Switch Name
         </button>
         {/* /* this refers to the class  */}
-
         {persons}
       </div>
     );
@@ -137,5 +128,5 @@ class App extends Component {
   }
 }
 
-export default Radium(App);
+export default App;
 // default export / if you import this whole file you import the (App) class
