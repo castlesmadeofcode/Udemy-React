@@ -1,8 +1,25 @@
 import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
-import Radium from "radium";
+import styled from "styled-components";
+// import Radium, { StyleRoot } from "radium";
+//wrap return stament in StyleRoot component for advanced features such as media queries
+
 // Radium allows us to use inline styles with seudo selectors and media queries within react
+
+//styled component uses regular CSS syntax
+// if alt = true return red if false return green
+const StyledButton = styled.button`
+      background-color: ${(props) => (props.alt ? "red" : "green")};
+      font: inherit;
+      border: 1px solid blue;
+      padding: 8px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
+        color: black;
+`;
 
 class App extends Component {
   // creates a new class object that inherits from Component class which is imported from the react library
@@ -53,7 +70,7 @@ class App extends Component {
   // we use an arrow function so 'this' always returns to this class
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    // if doeShow is true set showPersons to false is doesShow is true set showPersons to false
+    // if doesShow is true set showPersons to false if doesShow is true set showPersons to false
     this.setState({ showPersons: !doesShow });
   };
 
@@ -61,17 +78,17 @@ class App extends Component {
     // React calls render to      | return/render something to the screen/DOM
     // every react component must ^
 
-    const style = {
-      backgroundColor: "green",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer",
-      ":hover": {
-        backgroundColor: "lightgreen",
-        color: "black",
-      },
-    };
+    // const style = {
+    //   backgroundColor: "green",
+    //   font: "inherit",
+    //   border: "1px solid blue",
+    //   padding: "8px",
+    //   cursor: "pointer",
+    //   ":hover": {
+    //     backgroundColor: "lightgreen",
+    //     color: "black",
+    //   },
+    // };
 
     let persons = null;
 
@@ -103,11 +120,11 @@ class App extends Component {
         </div>
       );
 
-      style.backgroundColor = "red";
-      style[":hover"] = {
-        backgroundColor: "salmon",
-        color: "black",
-      };
+      // style.backgroundColor = "red";
+      // style[":hover"] = {
+      //   backgroundColor: "salmon",
+      //   color: "black",
+      // };
     }
 
     let classes = [];
@@ -123,11 +140,13 @@ class App extends Component {
         <h1>Hi, I'm a React App</h1>
         <p className={classes.join(" ")}>This is really working!</p>
         {/* passes an anonymous function which gets executed on click and returns the result of the function within getting executed */}
-        <button style={style} onClick={this.togglePersonsHandler}>
+        <StyledButton
+          alt={this.state.showPersons}
+          onClick={this.togglePersonsHandler}
+        >
           Switch Name
-        </button>
+        </StyledButton>
         {/* /* this refers to the class  */}
-
         {persons}
       </div>
     );
@@ -137,5 +156,5 @@ class App extends Component {
   }
 }
 
-export default Radium(App);
+export default App;
 // default export / if you import this whole file you import the (App) class
