@@ -1,25 +1,11 @@
 import React, { Component } from "react";
+
 import "./App.css";
 import Person from "./Person/Person";
-import styled from "styled-components";
 // import Radium, { StyleRoot } from "radium";
 //wrap return stament in StyleRoot component for advanced features such as media queries
 
 // Radium allows us to use inline styles with seudo selectors and media queries within react
-
-//styled component uses regular CSS syntax
-// if alt = true return red if false return green
-const StyledButton = styled.button`
-      background-color: ${(props) => (props.alt ? "red" : "green")};
-      font: inherit;
-      border: 1px solid blue;
-      padding: 8px;
-      cursor: pointer;
-
-      &:hover {
-        background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
-        color: black;
-`;
 
 class App extends Component {
   // creates a new class object that inherits from Component class which is imported from the react library
@@ -140,12 +126,13 @@ class App extends Component {
         <h1>Hi, I'm a React App</h1>
         <p className={classes.join(" ")}>This is really working!</p>
         {/* passes an anonymous function which gets executed on click and returns the result of the function within getting executed */}
-        <StyledButton
+        <button
+          className="button"
           alt={this.state.showPersons}
           onClick={this.togglePersonsHandler}
         >
           Switch Name
-        </StyledButton>
+        </button>
         {/* /* this refers to the class  */}
         {persons}
       </div>
