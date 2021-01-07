@@ -2,11 +2,8 @@ import React, { Component } from "react";
 import classes from "./App.css";
 // css modules transforms classes into RNG unique class names
 import Person from "./Person/Person";
-// import Radium, { StyleRoot } from "radium";
-//wrap return stament in StyleRoot component for advanced features such as media queries
-
-// Radium allows us to use inline styles with seudo selectors and media queries within react
-
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+// only use error boundaries for cases where you know it might fail and you can't control that
 class App extends Component {
   // creates a new class object that inherits from Component class which is imported from the react library
   // Components are basically custom HTML elements
@@ -76,13 +73,14 @@ class App extends Component {
           {/* execute as an arrow function in order to pass index */}
           {this.state.persons.map((person, index) => {
             return (
-              <Person
-                click={() => this.deletePersonHandler(index)}
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                changed={(event) => this.nameChangedHandler(event, person.id)}
-              />
+              <ErrorBoundary key={person.id}>
+                <Person
+                  click={() => this.deletePersonHandler(index)}
+                  name={person.name}
+                  age={person.age}
+                  changed={(event) => this.nameChangedHandler(event, person.id)}
+                />
+              </ErrorBoundary>
             );
 
             {
