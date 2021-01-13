@@ -1,8 +1,9 @@
+// App container manages and manipulates the state
 import React, { Component } from "react";
 import classes from "./App.css";
 // css modules transforms classes into RNG unique class names
-import Person from "./Person/Person";
-
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
 class App extends Component {
   // creates a new class object that inherits from Component class which is imported from the react library
   // Components are basically custom HTML elements
@@ -61,60 +62,26 @@ class App extends Component {
     // every react component must ^
 
     let persons = null;
-    let btnClass = [classes.button];
 
     if (this.state.showPersons) {
       // convert array of objects into valid jsx
       //function is executed on each element in the persons array and returns a person component
       persons = (
-        <div>
-          {/* map method exposes a second argument, index. */}
-          {/* execute as an arrow function in order to pass index */}
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                click={() => this.deletePersonHandler(index)}
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                changed={(event) => this.nameChangedHandler(event, person.id)}
-              />
-            );
-
-            {
-              /* we assign a key property to allow react to keep track of the individual elements 
-         so that it has a clear property it can compare between the different elements to
-         found out which element changed and which didnt so that it only rerenders the elements that 
-         did change and not the whole list */
-            }
-          })}
-        </div>
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+        />
       );
-
-      btnClass.push(classes.red);
-      console.log(btnClass);
-    }
-
-    let assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red); //assignedClasses = ['red']
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold); // assignedClasses = ['red', 'bold']
     }
 
     return (
       <div className={classes.App}>
-        <h1>Hi, I'm a React App</h1>
-        <p className={assignedClasses.join(" ")}>This is really working!</p>
-        {/* passes an anonymous function which gets executed on click and returns the result of the function within getting executed */}
-        <button
-          className={btnClass.join(" ")}
-          onClick={this.togglePersonsHandler}
-        >
-          Switch Name
-        </button>
-        {/* /* this refers to the class  */}
+        <Cockpit
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler}
+        />
         {persons}
       </div>
     );
