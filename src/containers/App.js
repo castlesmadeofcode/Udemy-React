@@ -1,4 +1,5 @@
 // App container manages and manipulates the state
+//container is a term for a component that manages state
 import React, { Component } from "react";
 import classes from "./App.css";
 // css modules transforms classes into RNG unique class names
@@ -78,6 +79,7 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <Cockpit
+          title={this.props.appTitle}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.togglePersonsHandler}
