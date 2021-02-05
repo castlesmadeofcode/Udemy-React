@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Cockpit.css";
 // presentational component
-//functional component that does not manage state
+//(stateless) functional component that does not manage state
 //renders user interface
 
 const cockpit = (props) => {
